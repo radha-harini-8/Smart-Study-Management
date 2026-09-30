@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-head"><p class="eyebrow">YOUR CONTRIBUTIONS</p><h1>My uploads.</h1><p>Every resource you uploaded is here. Pending resources become visible to everyone after approval.</p><a class="button" href="{{url_for('upload')}}">Upload another resource +</a></section>
+<div class="simple-list uploads-list">
+{% for r in resources %}
+  <article><a href="{{url_for('resource_detail',resource_id=r.id)}}"><b>{{r.title}}</b><span>{{r.resource_type}} · {{r.subject.name if r.subject else 'General'}} · {{r.upload_date.strftime('%d %b %Y')}}</span></a><div class="upload-actions"><span class="status {{r.approval_status}}">{{r.approval_status}}</span>{% if r.file_path %}<a class="outline" href="{{url_for('preview_file',resource_id=r.id)}}" target="_blank">Preview</a><a class="outline" href="{{url_for('download',resource_id=r.id)}}">Download</a>{% endif %}</div></article>
+{% else %}<p>You have not uploaded anything yet.</p>{% endfor %}
+</div>
+{% endblock %}
