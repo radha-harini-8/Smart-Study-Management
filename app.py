@@ -1921,6 +1921,17 @@ def initialize_database():
 
 
 # ============================================================
+# INITIALIZE DATABASE ON APPLICATION START
+# ============================================================
+
+# Render runs this file through Gunicorn using `gunicorn app:app`.
+# In that mode, the `if __name__ == "__main__"` block is not executed.
+# Calling initialize_database() here ensures the SQLite/PostgreSQL tables
+# and seed data exist before the first request reaches the application.
+initialize_database()
+
+
+# ============================================================
 # LOCAL DEVELOPMENT
 # ============================================================
 
